@@ -50,3 +50,23 @@ func reverseBetween(head *ListNode, left int, right int) *ListNode {
 		return dummy
 	}
 }
+
+func ReverseBetween2(head *ListNode, left int, right int) *ListNode {
+	if left == right || head == nil {
+		return head
+	}
+
+	nh := &ListNode{0, head}
+	pre := nh
+	for i := 0; i < left-1; i++ {
+		pre = pre.Next
+	}
+	cur := pre.Next
+	for i := 0; i < right-left; i++ {
+		nextNode := cur.Next
+		cur.Next = nextNode.Next
+		nextNode.Next = pre.Next
+		pre.Next = nextNode
+	}
+	return nh.Next
+}
